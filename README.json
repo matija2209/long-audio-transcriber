@@ -1,0 +1,96 @@
+{
+  "title": "Audio Transcription Tool",
+  "description": "This tool transcribes audio files using OpenAI's Whisper API, with support for large files by automatically splitting them into chunks. It includes features for progress tracking and time-stamped output.",
+  "features": [
+    "Transcribe audio files of any size (automatically splits files > 25MB)",
+    "Resume interrupted transcriptions",
+    "Generate timestamped transcriptions",
+    "Group transcriptions into time intervals",
+    "Support for multiple audio formats (mp3, mp4, mpeg, mpga, m4a, wav, webm)"
+  ],
+  "prerequisites": {
+    "requirements": [
+      "Python 3.8 or higher",
+      "ffmpeg installed on your system",
+      "OpenAI API key"
+    ],
+    "ffmpeg_installation": {
+      "macOS": "brew install ffmpeg",
+      "Ubuntu": "sudo apt-get install ffmpeg",
+      "Windows": "choco install ffmpeg"
+    }
+  },
+  "installation": {
+    "steps": [
+      {
+        "title": "Clone the repository",
+        "command": "git clone https://github.com/yourusername/audio-transcription-tool.git\ncd audio-transcription-tool"
+      },
+      {
+        "title": "Create and activate virtual environment",
+        "commands": {
+          "create": "python -m venv venv",
+          "activate": {
+            "windows": "venv\\Scripts\\activate",
+            "unix": "source venv/bin/activate"
+          }
+        }
+      },
+      {
+        "title": "Install required packages",
+        "command": "pip install -r requirements.txt"
+      },
+      {
+        "title": "Configure environment",
+        "description": "Create a .env file in the project root and add your OpenAI API key",
+        "example": "WHISPER_API_KEY=\"your-api-key-here\""
+      }
+    ]
+  },
+  "usage": {
+    "basic_transcription": {
+      "title": "Basic Transcription",
+      "command": "python main.py",
+      "description": "Transcribes audio file, splitting into chunks if necessary"
+    },
+    "process_intervals": {
+      "title": "Process Transcription into Intervals",
+      "command": "python process_transcription.py",
+      "description": "Groups transcribed text into time intervals"
+    }
+  },
+  "output_files": {
+    "transcription.txt": "Raw transcription text",
+    "transcription_timestamps.json": "Complete JSON with timestamps",
+    "transcription_by_intervals.txt": "Text grouped by time intervals",
+    "transcription_progress.json": "Progress tracking file"
+  },
+  "configuration": {
+    "main_variables": {
+      "AUDIO_PATH": "Path to input audio file",
+      "OUTPUT_PATH_TEXT": "Path for output text file",
+      "MAX_SIZE_MB": "Maximum chunk size (default: 24)"
+    },
+    "interval_processing": {
+      "description": "Adjust interval size in process_transcription.py",
+      "example": "intervals = parse_transcription(interval_minutes=5)"
+    }
+  },
+  "error_handling": {
+    "features": [
+      "Progress saved after each chunk",
+      "Automatic resume from last successful chunk",
+      "Delete transcription_progress.json to start fresh"
+    ]
+  },
+  "project_structure": {
+    "files": [
+      ".env",
+      ".gitignore",
+      "README.md",
+      "requirements.txt",
+      "main.py",
+      "process_transcription.py"
+    ]
+  }
+} 
