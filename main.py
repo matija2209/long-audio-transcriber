@@ -11,12 +11,12 @@ load_dotenv()
 # Get API key from environment
 API_KEY = os.getenv("WHISPER_API_KEY")
 
-AUDIO_PATH = "/Users/ziberna/output_fast.wav"
+AUDIO_PATH = os.getenv("AUDIO_PATH", "/Users/ziberna/output_fast.wav")
 OUTPUT_PATH_TEXT = "transcription.txt"
 OUTPUT_PATH_JSON = "transcription_timestamps.json"
 CHUNK_DIR = "temp_chunks"
 PROGRESS_FILE = "transcription_progress.json"
-MAX_SIZE_MB = 24  # Using 24MB to be safe
+MAX_SIZE_MB = float(os.getenv("MAX_SIZE_MB", "24"))
 
 def load_progress():
     """Load progress from file if it exists."""
@@ -40,8 +40,11 @@ def mark_completed():
         json.dump(progress, f, indent=2)
 
 def setup_temp_directory():
-    """Create temporary directory for chunks if it doesn't exist."""
-    if not os.path.exists(CHUNK_DIR):
+    """Create temporary directory for chunks if it doesn't exist. If it exists, delete its contents."""
+    if os.path.exists(CHUNK_DIR):
+        for file in os.listdir(CHUNK_DIR):
+            os.remove(os.path.join(CHUNK_DIR, file))
+    else:
         os.makedirs(CHUNK_DIR)
 
 def cleanup_temp_directory():
@@ -101,9 +104,9 @@ def transcribe_chunk(chunk_path, is_first_chunk=""):
     with open(chunk_path, "rb") as audio_file:
         files = {"file": audio_file}
         data = {
-            "model": "whisper-1",
-            "language": "sl",
-            "response_format": "verbose_json",
+            "model": "gpt-4o-transcribe",
+            "temperature": "0",
+            "response_format": "json",
             "timestamp_granularities[]": "word"
         }
         
@@ -268,7 +271,7 @@ def main():
         
         print("\nFirst few words with timestamps:")
         for word in merged_result['words'][:5]:
-            print(f"Word: {word['text']}, Start: {word['start']:.2f}s, End: {word['end']:.2f}s")
+            print(f"Word: {word['word']}, Start: {word['start']:.2f}s, End: {word['end']:.2f}s")
             
         if progress.get('completed', False):
             print("\nCreating time-grouped transcription...")
