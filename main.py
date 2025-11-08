@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import ffmpeg
 import os
+import math
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -68,11 +69,11 @@ def split_audio_file(file_path):
     file_size = os.path.getsize(file_path)
     
     # Calculate how many chunks we need
-    num_chunks = (file_size / (MAX_SIZE_MB * 1024 * 1024)) + 1
+    num_chunks = math.ceil(file_size / (MAX_SIZE_MB * 1024 * 1024))
     chunk_duration = total_duration / num_chunks
-    
+
     chunks = []
-    for i in range(int(num_chunks)):
+    for i in range(num_chunks):
         start_time = i * chunk_duration
         chunk_path = os.path.join(CHUNK_DIR, f"chunk_{i:03d}.wav")
         
