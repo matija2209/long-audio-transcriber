@@ -1,0 +1,10 @@
+services:
+  audio-transcriber:
+    build: .
+    environment:
+      - WHISPER_API_KEY=${OPENAI_API_KEY}
+      - AUDIO_PATH=/app/input.wav
+      - MAX_SIZE_MB=24
+    volumes:
+      - ./:/app
+    user: "$UID:$GID"
