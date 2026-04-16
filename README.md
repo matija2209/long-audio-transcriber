@@ -11,6 +11,18 @@ This tool transcribes audio files using OpenAI's Whisper API, with support for l
 - Support for multiple audio formats (mp3, mp4, mpeg, mpga, m4a, wav, webm)
 
 
+## Setup with Docker compose
+
+```bash
+docker compose build
+cp gen_dot_env.sample.sh gen_dot_env.sh
+vim gen_dot_env.sh # configure OpenAI api key, input file name
+./gen_dot_env.sh
+docker compose run --rm audio-transcriber # will generate transcription files
+```
+
+## Setup on computer
+
 ## Prerequisites
 
 - Python 3.8 or higher
@@ -40,8 +52,8 @@ choco install ffmpeg
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/audio-transcription-tool.git
-cd audio-transcription-tool
+git clone https://github.com/yourusername/long-audio-transcriber.git
+cd long-audio-transcriber
 ```
 
 1. Create and activate virtual environment:

@@ -9,6 +9,7 @@ ENV/
 
 # Environment variables
 .env
+gen_dot_env.sh
 
 # Project specific
 temp_chunks/

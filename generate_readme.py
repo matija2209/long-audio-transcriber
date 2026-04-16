@@ -13,6 +13,19 @@ def json_to_markdown(json_data):
         md.append(f"- {feature}")
     md.append("\n")
     
+    # Setup with Docker compose
+    md.append("## Setup with Docker compose\n")
+    md.append("```bash")
+    md.append("docker compose build")
+    md.append("cp gen_dot_env.sample.sh gen_dot_env.sh")
+    md.append("vim gen_dot_env.sh # configure OpenAI api key, input file name")
+    md.append("./gen_dot_env.sh")
+    md.append("docker compose run --rm audio-transcriber # will generate transcription files")
+    md.append("```\n")
+
+    # Setup on computer
+    md.append("## Setup on computer\n")
+
     # Prerequisites
     md.append("## Prerequisites\n")
     for req in json_data['prerequisites']['requirements']:

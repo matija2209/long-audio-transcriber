@@ -1,6 +1,6 @@
 {
-  "title": "Whisper Transcriber",
-  "description": "A robust audio transcription tool using OpenAI's Whisper API. Handles files of any length by automatically splitting them into chunks, with progress tracking and timestamped output.",
+  "title": "Audio Transcription Tool",
+  "description": "This tool transcribes audio files using OpenAI's Whisper API, with support for large files by automatically splitting them into chunks. It includes features for progress tracking and time-stamped output.",
   "repository": {
     "url": "https://github.com/matija2209/long-audio-transcriber",
     "issues": "https://github.com/matija2209/long-audio-transcriber/issues",
@@ -35,7 +35,7 @@
     "steps": [
       {
         "title": "Clone the repository",
-        "command": "git clone https://github.com/matija2209/long-audio-transcriber.git\ncd long-audio-transcriber"
+        "command": "git clone https://github.com/yourusername/long-audio-transcriber.git\ncd long-audio-transcriber"
       },
       {
         "title": "Create and activate virtual environment",
